@@ -7,7 +7,7 @@ const Navbar = () => {
         <nav className="navbar navbar-expand-md navbar-light ml-2 mr-2" style={{ backgroundColor: 'white' }}>
             {/* Navbar content */}
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu">
-                <i class="fas fa-hamburger"></i>
+                <i className="fas fa-hamburger"></i>
                 {/* <span className="navbar-toggler-icon"></span> */}
             </button>
             <a href="#" className="navbar-brand m-auto"><img src={logo} height="30px" alt="logo" /></a>

@@ -1,0 +1,17 @@
+{
+    "tables": {
+        "Tasks": {
+            "tableName": "Tasks",
+            "indexes": []
+        },
+        "tasks": {
+            "tableName": "tasks",
+            "indexes": []
+        },
+        "users": {
+            "tableName": "users",
+            "indexes": []
+        }
+    },
+    "revision": 1
+}

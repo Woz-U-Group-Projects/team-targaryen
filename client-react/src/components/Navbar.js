@@ -1,6 +1,6 @@
 import React from "react";
 import '../task.min.css';
-import logo from "../images/Pomo-Do_logo-700x150.png";
+import logo from "../images/Pomo-Do_logo-233x50.png";
 
 const Navbar = () => {
     return (

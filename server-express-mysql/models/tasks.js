@@ -1,12 +1,12 @@
 /* jshint indent: 2 */
 
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   return sequelize.define('tasks', {
     taskId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
+      primaryKey: true
     },
     taskTitle: {
       type: DataTypes.STRING(255),
@@ -18,6 +18,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     userId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: 'users',
         key: 'userId'
@@ -25,10 +26,12 @@ module.exports = function (sequelize, DataTypes) {
     },
     done: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
       defaultValue: false
     },
     deleted: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
       defaultValue: false
     },
     createdAt: {

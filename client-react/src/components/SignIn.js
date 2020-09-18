@@ -4,24 +4,25 @@ import axios from "axios";
 import '../bootstrap.min.css';
 import logo from "../images/Pomo-Do_logo-icon-50x50.png";
 
-class SignUp extends React.Component {
+class SignIn extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "",
             email: "",
             password: ""
-        };
+        }
+
     }
 
-    addUser = (newUser) => {
-        axios.post('/users/signup', {
-            username: newUser.username,
-            email: newUser.email,
-            password: newUser.password
+    signIn = (user) => {
+        axios.post('/users/signin', {
+            email: user.email,
+            password: user.password
         })
             .then(response => {
-                console.log('Signed up')
+                localStorage.setItem('usertoken', response.data)
+                return response.data
+                // console.log('Signed in')
             })
             .catch(err => {
                 console.log(err)
@@ -35,13 +36,12 @@ class SignUp extends React.Component {
     onSubmit = (e) => {
         e.preventDefault();
         const user = {
-            username: this.state.username,
             email: this.state.email,
             password: this.state.password
         }
-        this.addUser(user).then(response => {
+        this.signIn(user).then(response => {
             if (response) {
-                this.props.history.push("/signin")
+                this.props.history.push("/")
             }
         })
     }
@@ -49,7 +49,7 @@ class SignUp extends React.Component {
     componentDidMount() {
     }
 
-    // return axios.get("http://localhost:3001/users/signup");
+    // return axios.get("http://localhost:3001/users/signin");
 
     render() {
         return (
@@ -64,15 +64,11 @@ class SignUp extends React.Component {
                             <div className="card">
                                 <div className="card-header d-flex justify-content-between" style={{ backgroundColor: 'white' }}>
                                     <Link to="/"><img src={logo} height="30px" alt="logo-icon" /></Link>
-                                    <Link to="/signin" className="nav-link h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign In</Link>
+                                    <Link to="/signup" className="nav-link h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign Up</Link>
                                 </div>
                                 <div className="card-body">
                                     <form NoValidate onSubmit={this.onSubmit}>
-                                        <h1 className="h3 mb-3">Sign Up for Pomo-Do</h1>
-                                        <div className="form-group">
-                                            <input type="text" name="username" className="form-control"
-                                                placeholder="Username" value={this.state.username} onChange={this.onChange} />
-                                        </div>
+                                        <h1 className="h3 mb-3">Sign In to Pomo-Do</h1>
                                         <div className="form-group">
                                             <input type="email" name="email" className="form-control"
                                                 placeholder="Email" value={this.state.email} onChange={this.onChange} />
@@ -82,7 +78,7 @@ class SignUp extends React.Component {
                                                 placeholder="Password" value={this.state.password} onChange={this.onChange} />
                                         </div>
                                         <button type="submit" className="btn btn-danger btn-block">
-                                            Sign Up
+                                            Sign In
                                     </button>
                                     </form>
                                 </div>
@@ -95,4 +91,4 @@ class SignUp extends React.Component {
     }
 }
 
-export default SignUp;
+export default SignIn;

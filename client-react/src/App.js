@@ -13,7 +13,7 @@ function App() {
         <Navbar />
         {/* <Task /> */}
         {/* <SignUp /> */}
-        <Route exact path="/" component={App} />
+        <Route exact path="/" component={SignIn} />
         <Route path="/signup" component={SignUp} />
         <Route path="/signin" component={SignIn} />
       </div>

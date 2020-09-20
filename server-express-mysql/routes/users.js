@@ -48,7 +48,7 @@ router.post('/signin', function (req, res, next) {
           let token = authService.signUser(user);
           res.cookie('jwt', token);
           console.log('Login successful');
-          res.redirect('/users/tasks');
+          res.redirect('/tasks');
         } else {
           console.log('Wrong password');
           return res.status(401).json({
@@ -59,5 +59,12 @@ router.post('/signin', function (req, res, next) {
     })
     .catch(err => res.status(400).json(err))
 })
+
+/* Sign out user -> /users/signout/ */
+router.get('/signout', function (req, res, next) {
+  res.cookie('jwt', "", { expires: new Date(0) });
+  /* res.json ('Successfully logged out'); */
+  res.redirect('/users/signin');
+});
 
 module.exports = router;

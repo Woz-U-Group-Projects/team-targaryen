@@ -1,13 +1,16 @@
 import React from "react";
-import { BrowserRouter as Link, Router } from "react-router-dom";
+import { BrowserRouter as Link, Router, Redirect} from "react-router-dom";
 import '../bootstrap.min.css';
 import logo from "../images/Pomo-Do_logo-233x50.png";
 
 class Navbar extends React.Component {
     signOut = (e) => {
+        
         e.preventDefault();
         localStorage.removeItem('usertoken');
-        this.props.history.push("/signin")
+        // this.props.history.push(`/signin`);
+        return <Redirect to="/signin" />
+    
     }
 
     render() {

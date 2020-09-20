@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router, Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import '../bootstrap.min.css';
 import logo from "../images/Pomo-Do_logo-icon-50x50.png";
@@ -40,14 +40,17 @@ class SignUp extends React.Component {
             password: this.state.password
         }
         this.addUser(user).then(response => {
-            if (response) {
-                this.props.history.push("/signin")
-            }
+            return (
+            // if (response) {
+                // this.props.history.push(`/signin`)
+                <Redirect to="/" />
+            // }
+            )
         })
     }
 
-    componentDidMount() {
-    }
+    // componentDidMount() {
+    // }
 
     // return axios.get("http://localhost:3001/users/signup");
 
@@ -67,7 +70,7 @@ class SignUp extends React.Component {
                                     <Link to="/signin" className="nav-link h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign In</Link>
                                 </div>
                                 <div className="card-body">
-                                    <form NoValidate onSubmit={this.onSubmit}>
+                                    <form noValidate onSubmit={this.onSubmit}>
                                         <h1 className="h3 mb-3">Sign Up for Pomo-Do</h1>
                                         <div className="form-group">
                                             <input type="text" name="username" className="form-control"

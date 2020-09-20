@@ -9,7 +9,7 @@ var authService = require("../services/auth");
 // });
 
 // Sign up user -> /users/signup/
-router.post('/signup', function (req, res, next) {
+router.post("/signup", function (req, res, next) {
   models.users
     .findOrCreate({
       where: { email: req.body.email },
@@ -20,39 +20,43 @@ router.post('/signup', function (req, res, next) {
     })
     .spread(function (result, created) {
       if (created) {
-        console.log('User successfully signed up');
-        res.redirect('/users/signin');
+        console.log("User successfully signed up");
+        return res.status(200).json({ message: "Yay, you've successfully signed up." });
+        // res.redirect('/users/signin');
       }
-      // if (err) { res.send(err) }
+      // else if (err) {
+      //   res.send(err)
+      // }
       else {
-        res.json('You are already a Pomo-Do user.')
+        return res.status(400).json({ error: "You are already a Pomo-Do user." });
       }
     })
-    .catch(err => res.status(400).json(err))
+    .catch(err => res.status(400).json(err));
 });
 
 // Sign in user -> /users/signin/
-router.post('/signin', function (req, res, next) {
+router.post("/signin", function (req, res, next) {
   models.users.findOne({
     where: { email: req.body.email, deleted: false }
   })
     .then(user => {
       if (!user) {
-        console.log('User not found')
+        console.log("User not found");
         return res.status(401).json({
-          message: "Oops, login failed. Please check your details and try again."
+          error: "Oops, user could not be found. Please check your details and try again."
         });
       } else {
         let passwordMatch = authService.comparePasswords(req.body.password, user.password);
         if (passwordMatch) {
           let token = authService.signUser(user);
-          res.cookie('jwt', token);
-          console.log('Login successful');
-          res.redirect('/tasks');
+          res.cookie("jwt", token);
+          console.log("Login successful");
+          return res.status(200).json({ message: "Yay, you've successfully signed in." });
+          // res.redirect('/tasks');
         } else {
           console.log('Wrong password');
           return res.status(401).json({
-            message: "Oops, login failed. Please check your details and try again."
+            error: "Oops, login failed. Please check your details and try again."
           });
         }
       }
@@ -60,11 +64,11 @@ router.post('/signin', function (req, res, next) {
     .catch(err => res.status(400).json(err))
 })
 
-/* Sign out user -> /users/signout/ */
-router.get('/signout', function (req, res, next) {
-  res.cookie('jwt', "", { expires: new Date(0) });
-  /* res.json ('Successfully logged out'); */
-  res.redirect('/users/signin');
-});
+// /* Sign out user -> /users/signout/ */
+// router.get("/signout", function (req, res, next) {
+//   res.cookie("jwt", "", { expires: new Date(0) });
+//   res.status(200).json({ message: "You have successfully signed out." });
+//   // res.redirect('/users/signin');
+// });
 
 module.exports = router;

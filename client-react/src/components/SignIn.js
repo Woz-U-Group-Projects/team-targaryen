@@ -77,7 +77,7 @@ class SignIn extends React.Component {
                     <input type="password" name="password" className="form-control"
                       placeholder="Password" value={this.state.password} onChange={this.onChange} />
                   </div>
-                  <button type="submit" onClick={this.onSubmit} className="btn btn-danger-pomodo btn-block">
+                  <button type="submit" className="btn btn-danger-pomodo btn-block">
                     Sign In
                     </button>
                 </form>

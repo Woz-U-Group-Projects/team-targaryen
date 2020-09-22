@@ -43,7 +43,7 @@ class SignUp extends React.Component {
     }
     this.addUser(user).then(response => {
       if (!response) {
-        return this.props.history.push(`/`);
+        return this.props.history.push(`/signup`);
       } else {
         return this.props.history.push(`/signin`);
       }
@@ -82,9 +82,9 @@ class SignUp extends React.Component {
                     <input type="password" name="password" className="form-control"
                       placeholder="Password" value={this.state.password} onChange={this.onChange} />
                   </div>
-                  <button type="submit" className="btn btn-danger-pomodo btn-block">
+                  <button type="submit" onClick={this.onSubmit} className="btn btn-danger-pomodo btn-block">
                     Sign Up
-                                    </button>
+                    </button>
                 </form>
               </div>
             </div>

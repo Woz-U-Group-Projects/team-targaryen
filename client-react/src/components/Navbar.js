@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 // import axios from "axios";
 import "../css/bootstrap.min.css";
 import "../css/style.css";
@@ -10,8 +10,8 @@ class Navbar extends React.Component {
 
   signOut = (e) => {
     e.preventDefault();
-    localStorage.removeItem("usertoken");
-    return this.props.history.push(`/signin`);
+    localStorage.removeItem("usertoken");>
+    return this.props.history.push(`/signin`)
   }
 
   // getSignOut = () => {
@@ -32,7 +32,7 @@ class Navbar extends React.Component {
   // }
 
   render() {
-    const signOutLink = < a href="_" onClick={this.signOut} className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign Out</a>
+    const signOutLink = < a href="#" onClick={this.signOut} className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign Out</a>
 
     const signInLink = <Link to="/signin" className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign In</Link>
 

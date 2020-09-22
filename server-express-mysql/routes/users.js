@@ -3,11 +3,6 @@ var router = express.Router();
 var models = require("../models");
 var authService = require("../services/auth");
 
-// Get signup page -> /users/signup/
-// router.get('/signup', function (req, res, next) {
-//   res.json('signup page');
-// });
-
 // Sign up user -> /users/signup/
 router.post("/signup", function (req, res, next) {
   models.users
@@ -22,7 +17,6 @@ router.post("/signup", function (req, res, next) {
       if (created) {
         console.log("User successfully signed up");
         return res.status(200).json({ message: "Yay, you've successfully signed up." });
-        // res.redirect('/users/signin');
       }
       // else if (err) {
       //   res.send(err)
@@ -52,7 +46,6 @@ router.post("/signin", function (req, res, next) {
           res.cookie("jwt", token);
           console.log("Login successful");
           return res.status(200).json({ message: "Yay, you've successfully signed in." });
-          // res.redirect('/tasks');
         } else {
           console.log('Wrong password');
           return res.status(401).json({
@@ -68,7 +61,6 @@ router.post("/signin", function (req, res, next) {
 // router.get("/signout", function (req, res, next) {
 //   res.cookie("jwt", "", { expires: new Date(0) });
 //   res.status(200).json({ message: "You have successfully signed out." });
-//   // res.redirect('/users/signin');
 // });
 
 module.exports = router;

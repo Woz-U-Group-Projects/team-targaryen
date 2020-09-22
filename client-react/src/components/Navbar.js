@@ -1,15 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import "../css/bootstrap.min.css";
 import "../css/style.css";
 import logo from "../images/Pomo-Do_logo-233x50.png";
 // import axios from "axios";
 
 class Navbar extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   signOut = (e) => {
     e.preventDefault();
@@ -35,6 +32,10 @@ class Navbar extends React.Component {
   // }
 
   render() {
+    const signOutLink = < a href="_" onClick={this.signOut} className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign Out</a>
+
+    const signInLink = <Link to="/signin" className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign In</Link>
+
     return (
       <nav className="navbar navbar-expand-md navbar-light mb-5" style={{ backgroundColor: 'white' }}>
         {/* Navbar content */}
@@ -56,13 +57,7 @@ class Navbar extends React.Component {
             </li>
           </ul>
         </div>
-        {
-          localStorage.usertoken ?
-            // <Link to="/signin" onClick={this.signOut} className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign Out</Link>
-            < a href="_" onClick={this.signOut} className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign Out</a>
-            :
-            <Link to="/signin" className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign In</Link>
-        }
+        {localStorage.usertoken ? signOutLink : signInLink}
       </nav>
     );
   }

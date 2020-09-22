@@ -12,7 +12,6 @@ class SignIn extends React.Component {
       email: "",
       password: ""
     }
-
   }
 
   signIn = (user) => {
@@ -44,7 +43,7 @@ class SignIn extends React.Component {
       if (!response) {
         return this.props.history.push(`/signin`);
       } else {
-        return this.props.history.push(`/tasks`);
+        return this.props.history.push(`/tasks`) || window.location.reload();
       }
     })
   }
@@ -79,7 +78,7 @@ class SignIn extends React.Component {
                   </div>
                   <button type="submit" className="btn btn-danger-pomodo btn-block">
                     Sign In
-                    </button>
+                  </button>
                 </form>
               </div>
             </div>

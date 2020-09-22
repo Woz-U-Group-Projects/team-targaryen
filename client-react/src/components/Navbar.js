@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import axios from "axios";
 import "../css/bootstrap.min.css";
 import "../css/style.css";
@@ -10,29 +10,14 @@ class Navbar extends React.Component {
 
   signOut = (e) => {
     e.preventDefault();
-    localStorage.removeItem("usertoken");>
-    return this.props.history.push(`/signin`)
+    localStorage.removeItem("usertoken");
+    console.log("Signed Out");
+    // return this.props.history.push(`/signin`)
+    window.location.reload();
   }
 
-  // getSignOut = () => {
-  //     return axios.get("/users/signout")
-  //         .then(response => {
-  //             localStorage.removeItem("usertoken");
-  //             console.log("Signed out /br" + response.data );
-  //         })
-  //         .catch(err => {
-  //             console.log(err);
-  //         })
-  // }
-  // signOut = (e) => {
-  //     e.preventDefault();
-  //     this.getSignOut().then(response => {
-  //         return this.props.history.push(`/signin`);
-  //     })
-  // }
-
   render() {
-    const signOutLink = < a href="#" onClick={this.signOut} className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign Out</a>
+    const signOutLink = < Link to="#" onClick={this.signOut} className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign Out</ Link>
 
     const signInLink = <Link to="/signin" className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign In</Link>
 

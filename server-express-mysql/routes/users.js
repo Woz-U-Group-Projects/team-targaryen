@@ -18,9 +18,6 @@ router.post("/signup", function (req, res, next) {
         console.log("User successfully signed up");
         return res.status(200).json({ message: "Yay, you've successfully signed up." });
       }
-      // else if (err) {
-      //   res.send(err)
-      // }
       else {
         return res.status(400).json({ error: "You are already a Pomo-Do user." });
       }
@@ -56,11 +53,5 @@ router.post("/signin", function (req, res, next) {
     })
     .catch(err => res.status(400).json(err))
 })
-
-// /* Sign out user -> /users/signout/ */
-// router.get("/signout", function (req, res, next) {
-//   res.cookie("jwt", "", { expires: new Date(0) });
-//   res.status(200).json({ message: "You have successfully signed out." });
-// });
 
 module.exports = router;

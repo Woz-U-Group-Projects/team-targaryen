@@ -135,7 +135,7 @@ class SignUp extends React.Component {
                       </div>
                       <button type="submit" className="btn btn-danger-pomodo btn-block mb-2">
                         Sign Up
-                  </button>
+                      </button>
                     </div>
                   )}
 

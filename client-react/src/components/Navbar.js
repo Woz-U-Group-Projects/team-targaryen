@@ -1,10 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import axios from "axios";
 import "../css/bootstrap.min.css";
 import "../css/style.css";
 import logo from "../images/Pomo-Do_logo-233x50.png";
-// import axios from "axios";
 
 class Navbar extends React.Component {
 
@@ -17,7 +15,15 @@ class Navbar extends React.Component {
   }
 
   render() {
-    const signOutLink = < Link to="#" onClick={this.signOut} className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign Out</ Link>
+    const signOutLink =
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="signedInUserdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i className="fas fa-user"></i>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="signedInUserdropdown" style={{ left: "-100px" }}>
+          <Link to="#" onClick={this.signOut} className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign Out</ Link>
+        </div>
+      </div>
 
     const signInLink = <Link to="/signin" className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign In</Link>
 

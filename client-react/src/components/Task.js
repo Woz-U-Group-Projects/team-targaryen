@@ -40,11 +40,11 @@ class Task extends React.Component {
       <div>
         <h3>List of tasks (React)</h3>
         <input ref={this.taskName} />
-        <button type="button" className="btn btn-primary" onClick={this.addTask}>add</button>
+        <button type="button" className="btn btn-primary" onClick={this.addTask}>add task</button>
         <ul>
           {this.state.tasks.map(p => (
             <li key={p.taskid}>
-              {p.name} : { p.complete ? "complete" : "not complete" } <button type="button" className="btn btn-success">Complete</button><button type="button" className="btn btn-danger">Delete</button>
+              {p.name} : { p.complete ? "complete" : "not complete" } <button type="button" className="btn btn-success"> add task details</button><button type="button" className="btn btn-danger">Delete</button>
             </li>
           ))}
         </ul>

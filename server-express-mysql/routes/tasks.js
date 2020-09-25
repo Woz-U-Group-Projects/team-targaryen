@@ -32,5 +32,15 @@ router.put("/:id", function(req, res, next) {
     }
   ).then(task => res.json(task));
 });
-
+router.post('/tasks', function (req, res, next) {
+  models.tasks.create(req.body)
+    .then(newTasks => {
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify(newTasks));
+    })
+    .catch(err => {
+      res.status(400);
+      res.send(err.message);
+    });
+});
 module.exports = router;

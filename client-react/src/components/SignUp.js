@@ -140,7 +140,7 @@ class SignUp extends React.Component {
                   )}
 
                   {this.state.message && (
-                    <div className={this.state.isSignedUp ? "alert alert-success-pomodo" : "alert alert-danger"} role="alert">
+                    <div className={this.state.isSignedUp ? "alert alert-success-pomodo" : "text-danger-pomodo"} role="alert">
                       {this.state.message}
                     </div>
                   )}

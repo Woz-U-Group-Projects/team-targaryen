@@ -4,7 +4,6 @@ import axios from "axios";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
 import "../css/bootstrap.min.css";
 import "../css/style.css";
 import logo from "../images/Pomo-Do_logo-icon-50x50.png";
@@ -19,42 +18,25 @@ const required = value => {
   }
 };
 
-const email = value => {
-  if (!isEmail(value)) {
-    return (
-      <div className="text-danger-pomodo" role="alert">
-        Please enter a valid email.
-      </div>
-    );
-  }
-};
-
-class SignUp extends React.Component {
+class SignIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
       email: "",
       password: "",
-      isSignedUp: false,
+      loading: false,
       message: ""
-    };
+    }
   }
 
-  addUser = (newUser) => {
-    return axios.post("/users/signup", {
-      username: newUser.username,
-      email: newUser.email,
-      password: newUser.password
+  signIn = (user) => {
+    return axios.post("/users/signin", {
+      email: user.email,
+      password: user.password
     })
       .then(response => {
+        localStorage.setItem("usertoken", response.data);
         console.log(response.data);
-
-        this.setState({
-          isSignedUp: true,
-          message: response.data.message
-        });
-
         return response.data;
       })
       .catch(err => {
@@ -64,7 +46,7 @@ class SignUp extends React.Component {
           (err.response && err.response.data && err.response.data.error) || err.message || err.toString();
 
         this.setState({
-          isSignedUp: false,
+          loading: false,
           message: errorResponse
         });
       })
@@ -78,30 +60,30 @@ class SignUp extends React.Component {
     e.preventDefault();
 
     this.setState({
-      isSignedUp: false,
+      loading: true,
       message: ""
     });
 
     // Check form validation functions
     this.form.validateAll();
 
-    // Sign a user up if the form is validated with no error
+    // Sign a user in if the form is validated with no error
     if (this.checkBtn.context._errors.length === 0) {
 
       const user = {
-        username: this.state.username,
         email: this.state.email,
         password: this.state.password
       }
 
-      this.addUser(user)
+      this.signIn(user)
         .then(response => {
           if (response) {
-            console.log(response);
+            return this.props.history.push(`/tasks`) || window.location.reload();
           }
         })
     } else {
-      return this.props.history.push(`/signup`);
+      this.setState({ loading: false });
+      return this.props.history.push(`/signin`)
     }
   }
 
@@ -116,31 +98,26 @@ class SignUp extends React.Component {
             <div className="card">
               <div className="card-header d-flex justify-content-between" style={{ backgroundColor: 'white' }}>
                 <Link to="/"><img src={logo} height="30px" alt="logo-icon" /></Link>
-                <Link to="/signin" className="nav-link h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign In</Link>
+                <Link to="/signup" className="nav-link h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign Up</Link>
               </div>
               <div className="card-body">
-                <Form noValidate onSubmit={this.onSubmit} ref={c => { this.form = c; }}>
-
-                  {!this.state.isSignedUp && (
-                    <div>
-                      <h1 className="h3 mb-3">Sign Up for Pomo-Do</h1>
-                      <div className="form-group">
-                        <Input type="text" name="username" className="form-control mb-2" placeholder="Username" value={this.state.username} onChange={this.onChange} validations={[required]} />
-                      </div>
-                      <div className="form-group">
-                        <Input type="email" name="email" className="form-control mb-2" placeholder="Email" value={this.state.email} onChange={this.onChange} validations={[required, email]} />
-                      </div>
-                      <div className="form-group">
-                        <Input type="password" name="password" className="form-control mb-2" placeholder="Password" value={this.state.password} onChange={this.onChange} validations={[required]} />
-                      </div>
-                      <button type="submit" className="btn btn-danger-pomodo btn-block mb-2">
-                        Sign Up
-                      </button>
-                    </div>
-                  )}
+                <Form onSubmit={this.onSubmit} ref={c => { this.form = c; }}>
+                  <h1 className="h3 mb-3">Sign In to Pomo-Do</h1>
+                  <div className="form-group">
+                    <Input type="email" name="email" className="form-control mb-2" placeholder="Email" value={this.state.email} onChange={this.onChange} validations={[required]} />
+                  </div>
+                  <div className="form-group">
+                    <Input type="password" name="password" className="form-control mb-2" placeholder="Password" value={this.state.password} onChange={this.onChange} validations={[required]} />
+                  </div>
+                  <button type="submit" className="btn btn-danger-pomodo btn-block mb-2" disabled={this.state.loading}>
+                    {this.state.loading && (
+                      <span className="spinner-border spinner-border-sm" role="status"></span>
+                    )}
+                    <span>Sign In</span>
+                  </button>
 
                   {this.state.message && (
-                    <div className={this.state.isSignedUp ? "alert alert-success-pomodo" : "text-danger-pomodo"} role="alert">
+                    <div className="text-danger-pomodo" role="alert">
                       {this.state.message}
                     </div>
                   )}
@@ -155,4 +132,4 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+export default SignIn;

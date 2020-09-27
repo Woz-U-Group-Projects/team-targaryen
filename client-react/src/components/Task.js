@@ -52,5 +52,25 @@ class Task extends React.Component {
     );
   }
 }
-
+/*import React ,{Component} from "react";
+class Task extends Component {
+    
+    onDeleteClick(id,e){
+        const {deleteTasks} = this.props;
+        deleteTasks(id);
+    }
+    render(){
+        const{id,title,body}=this.props;
+        return(
+            <tr>
+                <td>{id}</td>
+                <td>{title}</td>
+                <td>{body}</td>
+                <td>
+                    <button onClick ={this.onDeleteClick.bind(this,id)}className="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+        );
+    }}
+export default Task; */
 export default Task;

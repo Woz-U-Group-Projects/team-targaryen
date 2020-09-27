@@ -28,3 +28,67 @@ function App() {
 }
 
 export default App;
+/* import React, { Component } from 'react';
+import AddTasks from "./components/AddTasks";
+import Tasks from "./components/Tasks";
+
+class App extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+      tasks:[
+        {
+          id:1,
+          title:"clean up",
+          body:"bathroo cleaning"          
+        },
+        {id:2,
+          title:"washing",
+          body:"bathroo cleaning"
+
+        },{
+        id:3,
+          title:"dasting",
+          body:"bathroo cleaning"}
+      ]
+    };
+    this.deleteTask=this.deleteTask.bind(this);
+    this.addTask=this.addTask.bind(this);
+  }
+addTask(newTask){
+  let updatedTasks=this.state.users;
+  updatedTasks.push(newTask);
+  this.setState({
+    tasks:updatedTasks
+  });
+}
+
+  deleteTask(id){
+    let updatedTasks= this.state.tasks;
+    updatedTasks= updatedTasks.filter(task => task.id !== id);
+    this.setState({
+      tasks:updatedTasks
+    })
+  }
+
+
+  render(){
+   
+    const isok =true;
+    return(<div className="container">
+    
+      <h5> todo app</h5>
+      <hr/>
+      <AddTasks addTask={this.addTask}/>
+      <hr/>
+      <Tasks  deleteTask = {this.deleteTask} tasks={this.state.tasks}/>
+      <hr/>
+      
+    </div>
+
+    );
+  }
+}
+
+export default App;
+*/

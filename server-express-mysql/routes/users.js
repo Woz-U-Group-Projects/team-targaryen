@@ -3,7 +3,7 @@ var router = express.Router();
 var models = require("../models");
 var authService = require("../services/auth");
 
-// Sign up user -> /users/signup/
+// Sign up user -> /users/signup
 router.post("/signup", function (req, res, next) {
   models.users
     .findOrCreate({
@@ -25,7 +25,7 @@ router.post("/signup", function (req, res, next) {
     .catch(err => res.status(400).json(err));
 });
 
-// Sign in user -> /users/signin/
+// Sign in user -> /users/signin
 router.post("/signin", function (req, res, next) {
   models.users.findOne({
     where: { email: req.body.email, deleted: false }
@@ -52,6 +52,12 @@ router.post("/signin", function (req, res, next) {
       }
     })
     .catch(err => res.status(400).json(err))
-})
+});
+
+// // Sign out user -> /users/signout
+// router.get('/signout', function (req, res, next) {
+//   res.cookie('jwt', "", { expires: new Date(0) });
+//   return res.status(200).json({ message: "You've successfully signed out." });
+// });
 
 module.exports = router;

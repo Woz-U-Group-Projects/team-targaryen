@@ -16,11 +16,11 @@ class Navbar extends React.Component {
 
   render() {
     const signOutLink =
-      <div class="dropdown">
-        <button class="btn dropdown-toggle" type="button" id="signedInUserdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div className="dropdown">
+        <button className="btn dropdown-toggle" type="button" id="signedInUserDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i className="fas fa-user"></i>
         </button>
-        <div class="dropdown-menu" aria-labelledby="signedInUserdropdown" style={{ left: "-100px" }}>
+        <div className="dropdown-menu text-right" aria-labelledby="signedInUserDropdown" style={{ left: "-100px" }}>
           <Link to="#" onClick={this.signOut} className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign Out</ Link>
         </div>
       </div>
@@ -28,7 +28,7 @@ class Navbar extends React.Component {
     const signInLink = <Link to="/signin" className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign In</Link>
 
     return (
-      <nav className="navbar navbar-expand-md navbar-light mb-5" style={{ backgroundColor: 'white' }}>
+      <nav className="navbar navbar-expand-md navbar-light" style={{ backgroundColor: 'white' }}>
         {/* Navbar content */}
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu">
           <i className="fas fa-ellipsis-v"></i>

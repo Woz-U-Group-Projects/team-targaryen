@@ -5,8 +5,10 @@ import Navbar from "./components/Navbar";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 // import Timer from "./components/Timer";
-import Task from "./components/Task";
+// import Task from "./components/Task";
+import Tasks from "./components/Tasks";
 // import Settings from "./components/Settings";
+import Unauthorized from "./components/Unauthorized";
 
 function App() {
   return (
@@ -16,12 +18,13 @@ function App() {
         {/* <Task /> */}
         {/* <SignUp /> */}
         {/* <SignIn /> */}
-        <Route exact path="/" component={Task} />
+        <Route exact path="/" component={Tasks} />
         <Route path="/signup" component={SignUp} />
         <Route path="/signin" component={SignIn} />
         {/* <Route path="/timer" component={Timer}/> */}
-        <Route path="/tasks" component={Task} />
+        <Route path="/tasks" component={Tasks} />
         {/* <Route path="/settings" component={Settings} /> */}
+        <Route path="/unauthorized" component={Unauthorized} />
       </div>
     </BrowserRouter>
   );

@@ -93,8 +93,6 @@ class Tasks extends React.Component {
   render() {
     console.log(this.state.taskData);
 
-    // const unauthorized = <Unauthorized />
-
     const tasks = this.state.taskData.map(task => (
       <div key={task.taskId}>
         <div>
@@ -105,8 +103,8 @@ class Tasks extends React.Component {
               {task.taskBody}
             </div>
             <div className="d-flex align-items-center">
-              <span><i className="ml-4 fas fa-check" onClick={this.onCheckClick} style={{ color: this.state.isCheckedOut ? "green" : "lightgrey" }}></i></span>
-              <span><i className="ml-4 fas fa-trash"></i></span>
+              <span><i className="ml-4 fas fa-check" onClick={this.onCheckClick} style={{ color: this.state.isCheckedOut ? "#406340" : "lightgrey" }}></i></span>
+              <span><i className="ml-4 fas fa-trash-alt"></i></span>
             </div>
           </div>
           <hr />

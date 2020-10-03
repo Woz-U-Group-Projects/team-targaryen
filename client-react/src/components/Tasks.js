@@ -90,6 +90,44 @@ class Tasks extends React.Component {
     this.setState({ isCheckedOut: !isCheckedOut });
   }
 
+  editTask = (editedTask) => {
+    return axios.put("/tasks/:id", {
+      taskTitle: editedTask.taskTitle,
+      taskBody: editedTask.taskBody
+    })
+      .then(response => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch(err => {
+        console.log(err + "\n" + err.response.data.error);
+      });
+  };
+
+  onSubmitEditTask = (e) => {
+    e.preventDefault();
+
+    this.setState({ isLoading: true });
+
+    const task = {
+      taskTitle: this.state.taskTitle,
+      taskBody: this.state.taskBody
+    }
+
+    this.editTask(task)
+      .then(response => {
+        if (response) {
+          return window.location.reload();
+        } else {
+          return this.props.history.push(`/unauthorized`);
+        }
+      })
+      .catch(err => {
+        this.setState({ isLoading: false });
+        return this.props.history.push(`/unauthorized`);
+      })
+  };
+
   render() {
     console.log(this.state.taskData);
 
@@ -97,7 +135,8 @@ class Tasks extends React.Component {
       <div key={task.taskId}>
         <div className="d-flex justify-content-between">
           <div>
-            <strong>{task.taskTitle}</strong>
+            {/* <strong>{task.taskTitle}</strong> */}
+            <input value={task.taskTitle} className="h6" style={{border:"none"}}/>
             <br />
             {task.taskBody}
           </div>

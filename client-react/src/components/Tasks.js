@@ -56,7 +56,7 @@ class Tasks extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onAddTaskSubmit = (e) => {
+  onSubmitAddTask = (e) => {
     e.preventDefault();
 
     this.setState({ isLoading: true });
@@ -80,12 +80,12 @@ class Tasks extends React.Component {
       })
   };
 
-  onPlusClick = (e) => {
+  onClickPlus = (e) => {
     const { isFormVisible } = this.state;
     this.setState({ isFormVisible: !isFormVisible });
   };
 
-  onCheckClick = (e) => {
+  onClickCheck = (e) => {
     const { isCheckedOut } = this.state;
     this.setState({ isCheckedOut: !isCheckedOut });
   }
@@ -93,27 +93,25 @@ class Tasks extends React.Component {
   render() {
     console.log(this.state.taskData);
 
-    const tasks = this.state.taskData.map(task => (
+    const tasks = this.state.taskData.map((task, index) => (
       <div key={task.taskId}>
-        <div>
-          <div className="d-flex justify-content-between">
-            <div>
-              <strong>{task.taskTitle}</strong>
-              <br />
-              {task.taskBody}
-            </div>
-            <div className="d-flex align-items-center">
-              <span><i className="ml-4 fas fa-check" onClick={this.onCheckClick} style={{ color: this.state.isCheckedOut ? "#406340" : "lightgrey" }}></i></span>
-              <span><i className="ml-4 fas fa-trash-alt"></i></span>
-            </div>
+        <div className="d-flex justify-content-between">
+          <div>
+            <strong>{task.taskTitle}</strong>
+            <br />
+            {task.taskBody}
           </div>
-          <hr />
+          <div className="d-flex align-items-center">
+            <span><i className="ml-4 fas fa-check" onClick={this.onClickCheck} style={{ color: this.state.isCheckedOut ? "#406340" : "lightgrey" }}></i></span>
+            <span><i className="ml-4 fas fa-trash-alt"></i></span>
+          </div>
         </div>
+        <hr />
       </div>
     ));
 
     const addTaskForm =
-      <form onSubmit={this.onAddTaskSubmit}>
+      <form onSubmit={this.onSubmitAddTask}>
         <div className="form-group">
           <input type="text" name="taskTitle" className="form-control mb-2" placeholder="Task Title" value={this.state.taskTitle} onChange={this.onChange} />
         </div>
@@ -136,7 +134,7 @@ class Tasks extends React.Component {
             <div className="card">
               <div className="card-header d-flex justify-content-center" style={{ backgroundColor: "white" }}>
                 <h1 className="h3 col-11 float-left d-flex justify-content-center">My To-Do List</h1>
-                <h4><i className="col-1 fas fa-plus" onClick={this.onPlusClick}></i></h4>
+                <h4><i className="col-1 fas fa-plus" onClick={this.onClickPlus} style={{ cursor: "pointer" }}></i></h4>
               </div>
               <div className="card-body">
                 {this.state.isFormVisible ? addTaskForm : null}

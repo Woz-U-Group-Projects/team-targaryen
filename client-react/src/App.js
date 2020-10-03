@@ -5,8 +5,8 @@ import Navbar from "./components/Navbar";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 // import Timer from "./components/Timer";
-// import Task from "./components/Task";
 import Tasks from "./components/Tasks";
+// import Task from "./components/Task";
 // import Settings from "./components/Settings";
 import Unauthorized from "./components/Unauthorized";
 

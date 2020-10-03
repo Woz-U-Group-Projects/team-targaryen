@@ -98,7 +98,7 @@ class SignIn extends React.Component {
             <div className="card">
               <div className="card-header d-flex justify-content-between" style={{ backgroundColor: "white" }}>
                 <Link to="/"><img src={logo} height="30px" alt="logo-icon" /></Link>
-                <Link to="/signup" className="nav-link h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign Up</Link>
+                <Link to="/signup" className="nav-link h6 text-danger-pomodo" style={{ textDecoration: "none" }}>Sign Up</Link>
               </div>
               <div className="card-body">
                 <Form onSubmit={this.onSubmit} ref={c => { this.form = c; }}>

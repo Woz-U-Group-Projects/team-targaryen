@@ -21,11 +21,11 @@ class Navbar extends React.Component {
           <i className="fas fa-user"></i>
         </button>
         <div className="dropdown-menu text-right" aria-labelledby="signedInUserDropdown" style={{ left: "-100px" }}>
-          <Link to="#" onClick={this.signOut} className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign Out</ Link>
+          <Link to="#" onClick={this.signOut} className="nav-item h6 text-danger-pomodo" style={{ textDecoration: "none" }}>Sign Out</ Link>
         </div>
       </div>
 
-    const signInLink = <Link to="/signin" className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign In</Link>
+    const signInLink = <Link to="/signin" className="nav-item h6 text-danger-pomodo" style={{ textDecoration: "none" }}>Sign In</Link>
 
     return (
       <nav className="navbar navbar-expand-md navbar-light" style={{ backgroundColor: 'white' }}>

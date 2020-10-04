@@ -12,6 +12,7 @@ class Tasks extends React.Component {
       taskData: [],
       taskTitle: "",
       taskBody: "",
+      isSignedIn: true,
       isLoading: false,
       isFormVisible: false,
       isCheckedOut: false
@@ -25,14 +26,15 @@ class Tasks extends React.Component {
   getTasks = () => {
     return axios.get("/tasks")
       .then(response => {
-        this.setState({ taskData: response.data })
+        if (response.status === 200) { this.setState({ taskData: response.data }) }
+        else { this.setState({ isSignedIn: false }) }
       })
       .catch(err => {
-        console.log(err + "\n" + err.response.data.error);
-        localStorage.removeItem("usertoken");
+        console.log(err + ": \n" + err.response.data.error);
         // return this.props.history.push(`/unauthorized`);
 
         this.setState({
+          isSignedIn: false,
           isLoading: false
         });
       });
@@ -136,7 +138,7 @@ class Tasks extends React.Component {
         <div className="d-flex justify-content-between">
           <div>
             {/* <strong>{task.taskTitle}</strong> */}
-            <input value={task.taskTitle} className="h6" style={{border:"none"}}/>
+            <input value={task.taskTitle} className="h6" style={{ border: "none" }} />
             <br />
             {task.taskBody}
           </div>
@@ -186,7 +188,7 @@ class Tasks extends React.Component {
 
     return (
       <div>
-        {localStorage.usertoken ? tasksPage : <Unauthorized />}
+        {this.state.isSignedIn ? tasksPage : <Unauthorized />}
       </div>
     );
   }

@@ -35,12 +35,11 @@ class SignIn extends React.Component {
       password: user.password
     })
       .then(response => {
-        localStorage.setItem("usertoken", response.data);
-        console.log(response.data);
+        console.log(response.data.message);
         return response.data;
       })
       .catch(err => {
-        console.log(err + "\n" + err.response.data.error);
+        console.log(err + ": \n" + err.response.data.error);
 
         const errorResponse =
           (err.response && err.response.data && err.response.data.error) || err.message || err.toString();

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "../css/bootstrap.min.css";
 import "../css/style.css";
 import logo from "../images/Pomo-Do_logo-233x50.png";
@@ -8,10 +9,14 @@ class Navbar extends React.Component {
 
   signOut = (e) => {
     e.preventDefault();
-    localStorage.removeItem("usertoken");
+
+    axios.get("/users/signout")
+      .then(() => {
+        window.location.reload();
+      });
+
+    this.props.signOut()
     console.log("Signed Out");
-    // return this.props.history.push(`/signin`)
-    window.location.reload();
   }
 
   render() {
@@ -48,7 +53,7 @@ class Navbar extends React.Component {
             </li>
           </ul>
         </div>
-        {localStorage.usertoken ? signOutLink : signInLink}
+        {this.props.isSignedIn ? signOutLink : signInLink}
       </nav>
     );
   }

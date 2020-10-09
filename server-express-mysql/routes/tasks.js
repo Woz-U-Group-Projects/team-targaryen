@@ -61,15 +61,13 @@ router.get("/:id", function (req, res, next) {
               console.log(result);
               return res.status(200).json(result);
             })
-            .catch(err => res.status(500).json(err));
+            .catch(err => res.status(500).json({ error: "An error occured while fetching your task data. Please try again in a few minutes." }));
         } else {
           return res.status(401).json({ error: "Oops, invalid authentication token. User could not be found." });
-          // res.redirect('/unauthorized');
         }
       });
   } else {
     return res.status(401).json({ error: "Oops, you must be signed in to continue." });
-    // res.redirect('/unauthorized');
   }
 });
 
@@ -81,29 +79,22 @@ router.put("/:id", function (req, res, next) {
       .then(user => {
         if (user) {
           models.tasks
-            // .update({ taskTitle: req.body.taskTitle, taskBody: req.body.taskBody }, { where: { taskId: parseInt(req.params.id), deleted: false } })
             .update(req.body, { where: { taskId: parseInt(req.params.id) } })
             .then(result => {
               console.log(result);
-              return res.status(200).json(result);
-              // return res.status(200).json({message: "Your task was updated successfully."});
-              // res.redirect('/tasks'))
+              return res.status(200).json({ message: "Your task was updated successfully.", result: result });
             })
             .catch(err => {
               return res.status(400).json({ error: "An error occured while updating your task. Please try again in a few minutes." });
             });
         } else {
           return res.status(401).json({ error: "Oops, invalid authentication token. User could not be found." });
-          // res.redirect('/unauthorized');
         }
       });
   } else {
     return res.status(401).json({ error: "Oops, you must be signed in to continue." });
-    // res.redirect('/unauthorized');
   }
 });
-
-// Done task with specified id -> /tasks/done/:id
 
 // Delete task with specified id -> /tasks/:id
 router.delete("/:id", function (req, res, next) {
@@ -116,19 +107,16 @@ router.delete("/:id", function (req, res, next) {
             .update({ deleted: true }, { where: { taskId: parseInt(req.params.id) } })
             .then(result => {
               return res.status(200).json({ message: "Task deleted" });
-              // res.redirect('/tasks')
             })
             .catch(err => {
               return res.status(400).json({ error: "An error occured while deleting the task. Please try again in a few minutes." });
             });
         } else {
           return res.status(401).json({ error: "Oops, invalid authentication token. User could not be found." });
-          // res.redirect('/unauthorized');
         }
       });
   } else {
     return res.status(401).json({ error: "Oops, you must be signed in to continue." });
-    // res.redirect('/unauthorized');
   }
 });
 

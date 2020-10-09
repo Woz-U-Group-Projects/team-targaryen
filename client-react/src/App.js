@@ -28,8 +28,8 @@ class App extends React.Component {
         this.setState({ isSignedIn: false });
       })
   }
-  render() {
 
+  render() {
     return (
       <BrowserRouter>
         <div className="App">
@@ -42,6 +42,7 @@ class App extends React.Component {
           <Route path="/signin" component={SignIn} />
           {/* <Route path="/timer" component={Timer}/> */}
           <Route path="/tasks" component={Tasks} />
+          {/* <Route path="/tasks/:id" component={Task} /> */}
           {/* <Route path="/settings" component={Settings} /> */}
           <Route path="/unauthorized" component={Unauthorized} />
         </div>

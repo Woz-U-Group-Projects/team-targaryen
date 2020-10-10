@@ -5,7 +5,7 @@ import { Modal, Button, Form, Spinner } from 'react-bootstrap';
 import "../css/bootstrap.min.css";
 import "../css/style.css";
 import Unauthorized from "./Unauthorized";
-import Task from "./Task";
+// import Task from "./Task";
 
 class Tasks extends React.Component {
   constructor(props) {

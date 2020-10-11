@@ -1,11 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { Modal, Button, Form, Spinner } from 'react-bootstrap';
 import "../css/bootstrap.min.css";
 import "../css/style.css";
 import Unauthorized from "./Unauthorized";
-import Task from "./Task";
+// import Task from "./Task";
 
 class Tasks extends React.Component {
   constructor(props) {
@@ -22,6 +21,8 @@ class Tasks extends React.Component {
 
       isDialogOpen: {},
       selectedTask: {},
+
+      isDoneLoading: false
     }
   }
 
@@ -126,10 +127,33 @@ class Tasks extends React.Component {
   }
 
   onClickDone = (task) => () => {
-    this.setState({
-      isDialogOpen: { doneDialog: true },
-      selectedTask: { ...task, done: !task.done }
-    });
+    this.setState({ isDoneLoading: true })
+
+    this.editTask({ ...task, done: !task.done })
+      .then(() => {
+        this.setState({
+          taskData: this.state.taskData.map(task2 => {
+            if (task.taskId === task2.taskId) {
+              return (
+                { ...task, done: !task.done }
+              )
+            }
+            return (
+              task2
+            )
+          }),
+          isDoneLoading: false
+        })
+      })
+      .catch(() => {
+        this.setState({ isDoneLoading: false });
+        alert("Failed to update done status");
+      })
+
+    // this.setState({
+    //   isDialogOpen: { doneDialog: true },
+    //   selectedTask: { ...task, done: !task.done }
+    // });
   }
 
   onClickEdit = (task) => (e) => {
@@ -175,7 +199,6 @@ class Tasks extends React.Component {
       taskTitle: this.state.selectedTask.taskTitle,
       taskBody: this.state.selectedTask.taskBody,
       taskId: this.state.selectedTask.taskId,
-      done: this.state.selectedTask.done,
       deleted: this.state.selectedTask.deleted
     }
     this.editTask(task)
@@ -196,7 +219,7 @@ class Tasks extends React.Component {
   render() {
     console.log(this.state.taskData);
 
-    if (this.state.taskData === 0) {
+    if (this.state.taskData.length === 0) {
       return <div>An error occured while fetching your task data. Please try again in a few minutes.</div>;
     }
 
@@ -214,8 +237,14 @@ class Tasks extends React.Component {
             <span>
               <i className="ml-4 fas fa-pencil-alt" onClick={this.onClickEdit(task)} style={{ cursor: "pointer" }}></i>
             </span>
-            <span><i className="ml-4 fas fa-check" onClick={this.onClickDone(task)} style={{ cursor: "pointer", color: task.done ? "#406340" : "lightgrey" }}></i></span>
-            <span><i className="ml-4 fas fa-trash-alt" onClick={this.onClickDelete(task)} style={{ cursor: "pointer" }}></i></span>
+            <span>
+              {(this.state.isDoneLoading) ? (
+                <span id={task.taskId} className="ml-4 spinner-border spinner-border-sm" role="status"></span>) : (
+                  <i className="ml-4 fas fa-check" onClick={this.onClickDone(task)} style={{ cursor: "pointer", color: task.done ? "#406340" : "lightgrey" }} disabled={this.state.isDoneLoading}></i>)}
+            </span>
+            <span>
+              <i className="ml-4 fas fa-trash-alt" onClick={this.onClickDelete(task)} style={{ cursor: "pointer" }}></i>
+            </span>
           </div>
 
         </div>
@@ -277,23 +306,6 @@ class Tasks extends React.Component {
                 <Spinner as="span" animation="border" size="sm" role="status" />
               )}
               Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal>
-
-        <Modal show={this.state.isDialogOpen.doneDialog} onHide={this.handleDialogClose}>
-          <Modal.Header closeButton>
-            Do you want to update the task?
-          </Modal.Header>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleDialogClose}>
-              No, thank you
-            </Button>
-            <Button className="btn-danger-pomodo" onClick={this.onSubmitEditTask} disabled={this.state.isLoading}>
-              {this.state.isLoading && (
-                <Spinner as="span" animation="border" size="sm" role="status" />
-              )}
-              Yes, please
             </Button>
           </Modal.Footer>
         </Modal>

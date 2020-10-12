@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "../css/bootstrap.min.css";
 import "../css/style.css";
 import logo from "../images/Pomo-Do_logo-233x50.png";
@@ -8,27 +9,31 @@ class Navbar extends React.Component {
 
   signOut = (e) => {
     e.preventDefault();
-    localStorage.removeItem("usertoken");
+
+    axios.get("/users/signout")
+      .then(() => {
+        window.location.reload();
+      });
+
+    this.props.signOut()
     console.log("Signed Out");
-    // return this.props.history.push(`/signin`)
-    window.location.reload();
   }
 
   render() {
     const signOutLink =
-      <div class="dropdown">
-        <button class="btn dropdown-toggle" type="button" id="signedInUserdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <div className="dropdown">
+        <button className="btn dropdown-toggle" type="button" id="signedInUserDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i className="fas fa-user"></i>
         </button>
-        <div class="dropdown-menu" aria-labelledby="signedInUserdropdown" style={{ left: "-100px" }}>
-          <Link to="#" onClick={this.signOut} className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign Out</ Link>
+        <div className="dropdown-menu text-right" aria-labelledby="signedInUserDropdown" style={{ left: "-100px" }}>
+          <Link to="#" onClick={this.signOut} className="nav-item h6 text-danger-pomodo" style={{ textDecoration: "none" }}>Sign Out</ Link>
         </div>
       </div>
 
-    const signInLink = <Link to="/signin" className="nav-item h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign In</Link>
+    const signInLink = <Link to="/signin" className="nav-item h6 text-danger-pomodo" style={{ textDecoration: "none" }}>Sign In</Link>
 
     return (
-      <nav className="navbar navbar-expand-md navbar-light mb-5" style={{ backgroundColor: 'white' }}>
+      <nav className="navbar navbar-expand-md navbar-light" style={{ backgroundColor: 'white' }}>
         {/* Navbar content */}
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu">
           <i className="fas fa-ellipsis-v"></i>
@@ -48,7 +53,7 @@ class Navbar extends React.Component {
             </li>
           </ul>
         </div>
-        {localStorage.usertoken ? signOutLink : signInLink}
+        {this.props.isSignedIn ? signOutLink : signInLink}
       </nav>
     );
   }

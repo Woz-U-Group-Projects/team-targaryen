@@ -36,12 +36,13 @@ class SignUp extends React.Component {
       username: "",
       email: "",
       password: "",
+      isLoading: false,
       isSignedUp: false,
       message: ""
     };
   }
 
-  addUser = (newUser) => {
+  signUp = (newUser) => {
     return axios.post("/users/signup", {
       username: newUser.username,
       email: newUser.email,
@@ -64,20 +65,22 @@ class SignUp extends React.Component {
           (err.response && err.response.data && err.response.data.error) || err.message || err.toString();
 
         this.setState({
+          isLoading: false,
           isSignedUp: false,
           message: errorResponse
         });
       })
-  }
+  };
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
-  }
+  };
 
   onSubmit = (e) => {
     e.preventDefault();
 
     this.setState({
+      isLoading: true,
       isSignedUp: false,
       message: ""
     });
@@ -94,16 +97,17 @@ class SignUp extends React.Component {
         password: this.state.password
       }
 
-      this.addUser(user)
+      this.signUp(user)
         .then(response => {
           if (response) {
             console.log(response);
           }
         })
     } else {
+      this.setState({ isLoading: false });
       return this.props.history.push(`/signup`);
     }
-  }
+  };
 
   // componentDidMount() {
   // }
@@ -114,9 +118,9 @@ class SignUp extends React.Component {
         <div className="row d-flex justify-content-center">
           <div className="col-md-6 mt-5">
             <div className="card">
-              <div className="card-header d-flex justify-content-between" style={{ backgroundColor: 'white' }}>
+              <div className="card-header d-flex justify-content-between" style={{ backgroundColor: "white" }}>
                 <Link to="/"><img src={logo} height="30px" alt="logo-icon" /></Link>
-                <Link to="/signin" className="nav-link h6" style={{ color: "#FF3939", textDecoration: "none" }}>Sign In</Link>
+                <Link to="/signin" className="nav-link h6 text-danger-pomodo" style={{ textDecoration: "none" }}>Sign In</Link>
               </div>
               <div className="card-body">
                 <Form noValidate onSubmit={this.onSubmit} ref={c => { this.form = c; }}>
@@ -133,14 +137,17 @@ class SignUp extends React.Component {
                       <div className="form-group">
                         <Input type="password" name="password" className="form-control mb-2" placeholder="Password" value={this.state.password} onChange={this.onChange} validations={[required]} />
                       </div>
-                      <button type="submit" className="btn btn-danger-pomodo btn-block mb-2">
-                        Sign Up
+                      <button type="submit" className="btn btn-danger-pomodo btn-block mb-2" disabled={this.state.isLoading}>
+                        {this.state.isLoading && (
+                          <span className="spinner-border spinner-border-sm" role="status"></span>
+                        )}
+                        <span>Sign Up</span>
                       </button>
                     </div>
                   )}
 
                   {this.state.message && (
-                    <div className={this.state.isSignedUp ? "alert alert-success-pomodo" : "alert alert-danger"} role="alert">
+                    <div className={this.state.isSignedUp ? "alert alert-success-pomodo" : "text-danger-pomodo"} role="alert">
                       {this.state.message}
                     </div>
                   )}

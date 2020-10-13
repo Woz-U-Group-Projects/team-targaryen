@@ -220,7 +220,11 @@ class Tasks extends React.Component {
     console.log(this.state.taskData);
 
     if (this.state.taskData.length === 0) {
-      return <div>An error occured while fetching your task data. Please try again in a few minutes.</div>;
+      return (
+        <div className="d-flex justify-content-center">
+          <span className="spinner-border spinner-border-sm text-danger-pomodo" role="status"></span>
+        </div>
+      )
     }
 
     const tasks = this.state.taskData.map((task) => (
@@ -239,7 +243,7 @@ class Tasks extends React.Component {
             </span>
             <span>
               {(this.state.isDoneLoading) ? (
-                <span id={task.taskId} className="ml-4 spinner-border spinner-border-sm" role="status"></span>) : (
+                <span id={task.taskId} className="ml-4 spinner-border spinner-border-sm text-danger-pomodo" role="status"></span>) : (
                   <i className="ml-4 fas fa-check" onClick={this.onClickDone(task)} style={{ cursor: "pointer", color: task.done ? "#406340" : "lightgrey" }} disabled={this.state.isDoneLoading}></i>)}
             </span>
             <span>

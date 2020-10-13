@@ -38,7 +38,7 @@ class App extends React.Component {
     if (this.state.isLoading) {
       return (
         <div className="d-flex justify-content-center">
-          <span className="spinner-border spinner-border-sm" role="status"></span>
+          <span className="spinner-border spinner-border-sm text-danger-pomodo" role="status"></span>
         </div>
       )
     }

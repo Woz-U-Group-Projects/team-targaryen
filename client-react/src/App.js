@@ -5,10 +5,10 @@ import axios from "axios";
 import Navbar from "./components/Navbar";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
-// import Timer from "./components/Timer";
+import Timer from "./components/Timer";
 import Tasks from "./components/Tasks";
 // import Task from "./components/Task";
-// import Settings from "./components/Settings";
+import Settings from "./components/Settings";
 import Unauthorized from "./components/Unauthorized";
 
 class App extends React.Component {
@@ -56,13 +56,13 @@ class App extends React.Component {
           </Route>
           <Route path="/signup" component={SignUp} />
           <Route path="/signin" component={SignIn} />
-          {/* <Route path="/timer" component={Timer}/> */}
+          <Route path="/timer" component={Timer} />
           {/* <Route path="/tasks" component={Tasks} /> */}
           <Route path="/tasks" component={Tasks} />
           {/* {this.state.isSignedIn ? <Tasks /> : <Redirect to="/unauthorized" />} */}
           {/* </Route> */}
           {/* <Route path="/tasks/:id" component={Task} /> */}
-          {/* <Route path="/settings" component={Settings} /> */}
+          <Route path="/settings" component={Settings} />
           <Route path="/unauthorized" component={Unauthorized} />
         </div>
       </BrowserRouter >

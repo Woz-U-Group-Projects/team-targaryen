@@ -8,15 +8,23 @@ import SignIn from "./components/SignIn";
 import Timer from "./components/Timer";
 import Tasks from "./components/Tasks";
 // import Task from "./components/Task";
-import Settings from "./components/Settings";
+// import Settings from "./components/Settings";
 import Unauthorized from "./components/Unauthorized";
 
 class App extends React.Component {
 
-  state = { isSignedIn: false, isLoading: true }
+  state = { isSignedIn: false, isLoading: true, isSettingsTabActive: false }
 
   signOut = () => {
     this.setState({ isSignedIn: false, isLoading: false });
+  }
+
+  onIsSettingsTabActive = () => {
+    this.setState({ isSettingsTabActive: true });
+  }
+
+  onIsTimerTabActive = () => {
+    this.setState({ isSettingsTabActive: false });
   }
 
   componentDidMount() {
@@ -46,23 +54,36 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <div className="App">
+
           {/* <Route path="/!(signup|signin|unauthorized)">
             {!this.state.isSignedIn && <Redirect to="/signin" />}
           </Route> */}
-          <Navbar isSignedIn={this.state.isSignedIn} signOut={this.signOut} />
+
+          {/* <Navbar isSignedIn={this.state.isSignedIn} signOut={this.signOut} /> */}
+          <Navbar isSignedIn={this.state.isSignedIn} signOut={this.signOut} isTimerTabActive={this.onIsTimerTabActive} isSettingsTabActive={this.onIsSettingsTabActive} />
+
           <Route exact path="/">
             {/* <Redirect to="/tasks"></Redirect> */}
             {this.state.isSignedIn ? <Redirect to="/tasks" /> : <Redirect to="/signin" />}
           </Route>
+
           <Route path="/signup" component={SignUp} />
+
           <Route path="/signin" component={SignIn} />
-          <Route path="/timer" component={Timer} />
-          {/* <Route path="/tasks" component={Tasks} /> */}
+
+          <Route path="/timer">
+            <Timer isSettingsTabActive={this.state.isSettingsTabActive} />
+          </Route>
+
           <Route path="/tasks" component={Tasks} />
-          {/* {this.state.isSignedIn ? <Tasks /> : <Redirect to="/unauthorized" />} */}
-          {/* </Route> */}
+          {/* <Route path="/tasks">
+            {this.state.isSignedIn ? <Tasks /> : <Redirect to="/unauthorized" />}
+          </Route> */}
+
           {/* <Route path="/tasks/:id" component={Task} /> */}
-          <Route path="/settings" component={Settings} />
+
+          {/* <Route path="/settings" component={Settings} /> */}
+
           <Route path="/unauthorized" component={Unauthorized} />
         </div>
       </BrowserRouter >

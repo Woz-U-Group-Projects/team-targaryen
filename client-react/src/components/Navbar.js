@@ -43,13 +43,13 @@ class Navbar extends React.Component {
         <div className="collapse navbar-collapse" id="menu">
           <ul className="navbar-nav m-auto">
             <li className="nav-item">
-              <Link to="/timer" className="nav-link text-dark h6">Timer</Link>
+              <Link to="/timer" className="nav-link text-dark h6" onClick={this.props.isTimerTabActive}>Timer</Link>
             </li>
             <li className="nav-item">
               <Link to="/tasks" className="nav-link text-dark h6">To-Do</Link>
             </li>
             <li className="nav-item">
-              <Link to="/settings" className="nav-link text-dark h6">Settings</Link>
+              <Link to="/timer/settings" className="nav-link text-dark h6" onClick={this.props.isSettingsTabActive}>Settings</Link>
             </li>
           </ul>
         </div>

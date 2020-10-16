@@ -1,0 +1,92 @@
+import React from "react";
+import "../css/style.css";
+
+import WorkCycleLength from "./WorkCycleLength";
+import ShortBreakLength from "./ShortBreakLength";
+import LongBreakLength from "./LongBreakLength";
+
+class Settings extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      workCycleLength: 25,
+      shortBreakLength: 5,
+      longBreakLength: 15
+    }
+  }
+
+  onDecreaseWorkCycleLength = () => {
+    this.setState({
+      workCycleLength: this.state.workCycleLength - 1
+    });
+  }
+
+  onIncreaseWorkCycleLength = () => {
+    this.setState({
+      workCycleLength: this.state.workCycleLength + 1
+    });
+  }
+
+  onDecreaseShortBreakLength = () => {
+    this.setState({
+      shortBreakLength: this.state.shortBreakLength - 1
+    });
+  }
+
+  onIncreaseShortBreakLength = () => {
+    this.setState({
+      shortBreakLength: this.state.shortBreakLength + 1
+    });
+  }
+
+  onDecreaseLongBreakLength = () => {
+    this.setState({
+      longBreakLength: this.state.longBreakLength - 1
+    });
+  }
+
+  onIncreaseLongBreakLength = () => {
+    this.setState({
+      longBreakLength: this.state.longBreakLength + 1
+    });
+  }
+
+  render() {
+    return (
+      <div className="container-fluid">
+        <div className="row" id="settings">
+          <div className="col mt-5 mb-5">
+            <div className="card border-0">
+              <div className="card-header text-center border-top border-right border-left" style={{ backgroundColor: "white" }}>
+                <h3>Settings</h3>
+              </div>
+              <div className="card-body border-bottom">
+                <div>
+                  <WorkCycleLength
+                    workCycleLength={this.state.workCycleLength}
+                    decreaseWorkCycleLength={this.onDecreaseWorkCycleLength}
+                    increaseWorkCycleLength={this.onIncreaseWorkCycleLength}
+                  />
+                  <hr />
+                  <ShortBreakLength
+                    shortBreakLength={this.state.shortBreakLength}
+                    decreaseShortBreakLength={this.onDecreaseShortBreakLength}
+                    increaseShortBreakLength={this.onIncreaseShortBreakLength}
+                  />
+                  <hr />
+                  <LongBreakLength
+                    longBreakLength={this.state.longBreakLength}
+                    decreaseLongBreakLength={this.onDecreaseLongBreakLength}
+                    increaseLongBreakLength={this.onIncreaseLongBreakLength}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Settings;

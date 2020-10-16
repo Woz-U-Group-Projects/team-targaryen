@@ -5,6 +5,7 @@ var logger = require("morgan");
 var models = require("./models");
 var cors = require("cors");
 
+var usersRouter = require("./routes/users");
 var tasksRouter = require("./routes/tasks");
 
 var app = express();
@@ -16,6 +17,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
+app.use("/users", usersRouter);
 app.use("/tasks", tasksRouter);
 
 models.sequelize.sync().then(function() {

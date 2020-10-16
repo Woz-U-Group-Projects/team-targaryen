@@ -1,13 +1,94 @@
 import React from "react";
-import  Task from "./components/Task";
-import "./App.css";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import axios from "axios";
+// import "./App.css";
+import Navbar from "./components/Navbar";
+import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
+import Timer from "./components/Timer";
+import Tasks from "./components/Tasks";
+// import Task from "./components/Task";
+// import Settings from "./components/Settings";
+import Unauthorized from "./components/Unauthorized";
 
-function App() {
-  return (
-    <div className="App">
-      <Task />
-    </div>
-  );
+class App extends React.Component {
+
+  state = { isSignedIn: false, isLoading: true, isSettingsTabActive: false }
+
+  signOut = () => {
+    this.setState({ isSignedIn: false, isLoading: false });
+  }
+
+  onIsSettingsTabActive = () => {
+    this.setState({ isSettingsTabActive: true });
+  }
+
+  onIsTimerTabActive = () => {
+    this.setState({ isSettingsTabActive: false });
+  }
+
+  componentDidMount() {
+    return axios.get("/users/issignedin")
+      .then(response => {
+        this.setState({
+          isSignedIn: response.status === 200 ? true : false,
+          isLoading: false
+        });
+      })
+      .catch(err => {
+        this.setState({ isSignedIn: false, isLoading: false });
+      })
+  }
+
+  render() {
+    console.log(this.state.isSignedIn)
+
+    if (this.state.isLoading) {
+      return (
+        <div className="d-flex justify-content-center">
+          <span className="spinner-border spinner-border-sm text-danger-pomodo" role="status"></span>
+        </div>
+      )
+    }
+
+    return (
+      <BrowserRouter>
+        <div className="App">
+
+          {/* <Route path="/!(signup|signin|unauthorized)">
+            {!this.state.isSignedIn && <Redirect to="/signin" />}
+          </Route> */}
+
+          {/* <Navbar isSignedIn={this.state.isSignedIn} signOut={this.signOut} /> */}
+          <Navbar isSignedIn={this.state.isSignedIn} signOut={this.signOut} isTimerTabActive={this.onIsTimerTabActive} isSettingsTabActive={this.onIsSettingsTabActive} />
+
+          <Route exact path="/">
+            {/* <Redirect to="/tasks"></Redirect> */}
+            {this.state.isSignedIn ? <Redirect to="/tasks" /> : <Redirect to="/signin" />}
+          </Route>
+
+          <Route path="/signup" component={SignUp} />
+
+          <Route path="/signin" component={SignIn} />
+
+          <Route path="/timer">
+            <Timer isSettingsTabActive={this.state.isSettingsTabActive} />
+          </Route>
+
+          <Route path="/tasks" component={Tasks} />
+          {/* <Route path="/tasks">
+            {this.state.isSignedIn ? <Tasks /> : <Redirect to="/unauthorized" />}
+          </Route> */}
+
+          {/* <Route path="/tasks/:id" component={Task} /> */}
+
+          {/* <Route path="/settings" component={Settings} /> */}
+
+          <Route path="/unauthorized" component={Unauthorized} />
+        </div>
+      </BrowserRouter >
+    );
+  }
 }
 
 export default App;

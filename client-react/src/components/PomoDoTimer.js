@@ -79,7 +79,7 @@ class PomoDoTimer extends React.Component {
             </span>
           </h3>
         </div>
-        <span className="h1 mb-3 btn-danger-pomodo-3" onClick={this.onClickCancelTimer}><i className="fas fa-undo-alt"></i></span>
+        <span className="h1 mb-3 mt-2 btn-danger-pomodo-3" onClick={this.onClickCancelTimer}><i className="fas fa-undo-alt"></i></span>
       </div>
     )
   }

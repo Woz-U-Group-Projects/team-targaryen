@@ -71,7 +71,7 @@ class Timer extends React.Component {
     this.setState({
       workCycleLength: this.state.workCycleLength + 1,
       currentTimerMinute: this.state.workCycleLength + 1
-    })
+    });
   }
 
   onDecreaseShortBreakLength = () => {
@@ -99,69 +99,73 @@ class Timer extends React.Component {
   }
 
   render() {
-    return (
-      <div className="container-fluid" >
 
-        {!this.props.isSettingsTabActive ? (
-          < div className="row" >
-            <div className="col mt-5">
-              <div className="card text-center border-0">
-                <div className="card-header border-top border-right border-left" style={{ backgroundColor: "white" }}>
-                  <h3>Timer</h3>
-                </div>
-                <div className="card-body">
-                  <div>
-                    <PomoDoTimer
-                      currentTimerMinute={this.state.currentTimerMinute}
-                      updateTimerMinute={this.onUpdateTimerMinute}
-                      switchSession={this.onSwitchSession}
-                      longBreakIndex={this.state.longBreakIndex}
-                      cancelTimer={this.onCancelTimer}
-                    />
-                  </div>
-                </div>
+    const timer = (
+      <div className="row" >
+        <div className="col mt-5">
+          <div className="card text-center border-0">
+            <div className="card-header border-top border-right border-left" style={{ backgroundColor: "white" }}>
+              <h3>Timer</h3>
+            </div>
+            <div className="card-body">
+              <div>
+                <PomoDoTimer
+                  currentTimerMinute={this.state.currentTimerMinute}
+                  updateTimerMinute={this.onUpdateTimerMinute}
+                  switchSession={this.onSwitchSession}
+                  longBreakIndex={this.state.longBreakIndex}
+                  cancelTimer={this.onCancelTimer}
+                />
               </div>
             </div>
           </div>
-        ) : (
-            < div className="row" id="settings" >
-              <div className="col mt-5 mb-5">
-                <div className="card border-0">
-                  <div className="card-header text-center border-top border-right border-left" style={{ backgroundColor: "white" }}>
-                    <h3>Settings</h3>
-                  </div>
-                  <div className="card-body border-bottom">
-                    <div>
-                      <WorkCycleLength
-                        workCycleLength={this.state.workCycleLength}
-                        decreaseWorkCycleLength={this.onDecreaseWorkCycleLength}
-                        increaseWorkCycleLength={this.onIncreaseWorkCycleLength}
-                      />
-                      <hr />
-                      <ShortBreakLength
-                        shortBreakLength={this.state.shortBreakLength}
-                        decreaseShortBreakLength={this.onDecreaseShortBreakLength}
-                        increaseShortBreakLength={this.onIncreaseShortBreakLength}
-                      />
-                      <hr />
-                      <LongBreakLength
-                        longBreakLength={this.state.longBreakLength}
-                        decreaseLongBreakLength={this.onDecreaseLongBreakLength}
-                        increaseLongBreakLength={this.onIncreaseLongBreakLength}
-                      />
-                      <hr />
-                      <NumberOfWorkCycles
-                        numberOfWorkCycles={this.state.numberOfWorkCycles}
-                        decreaseNumberOfWorkCycles={this.onDecreaseNumberOfWorkCycles}
-                        increaseNumberOfWorkCycles={this.onIncreaseNumberOfWorkCycles}
-                      />
-                    </div>
-                  </div>
-                </div>
+        </div>
+      </div>
+    )
+
+    const settings = (
+      <div className="row" id="settings">
+        <div className="col mt-5 mb-5">
+          <div className="card border-0">
+            <div className="card-header text-center border-top border-right border-left" style={{ backgroundColor: "white" }}>
+              <h3>Settings</h3>
+            </div>
+            <div className="card-body border-bottom">
+              <div>
+                <WorkCycleLength
+                  workCycleLength={this.state.workCycleLength}
+                  decreaseWorkCycleLength={this.onDecreaseWorkCycleLength}
+                  increaseWorkCycleLength={this.onIncreaseWorkCycleLength}
+                />
+                <hr />
+                <ShortBreakLength
+                  shortBreakLength={this.state.shortBreakLength}
+                  decreaseShortBreakLength={this.onDecreaseShortBreakLength}
+                  increaseShortBreakLength={this.onIncreaseShortBreakLength}
+                />
+                <hr />
+                <LongBreakLength
+                  longBreakLength={this.state.longBreakLength}
+                  decreaseLongBreakLength={this.onDecreaseLongBreakLength}
+                  increaseLongBreakLength={this.onIncreaseLongBreakLength}
+                />
+                <hr />
+                <NumberOfWorkCycles
+                  numberOfWorkCycles={this.state.numberOfWorkCycles}
+                  decreaseNumberOfWorkCycles={this.onDecreaseNumberOfWorkCycles}
+                  increaseNumberOfWorkCycles={this.onIncreaseNumberOfWorkCycles}
+                />
               </div>
-            </div >
-          )}
-      </div >
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+
+    return (
+      <div className="container-fluid">
+        {!this.props.isSettingsTabActive ? timer : settings}
+      </div>
     );
   }
 }

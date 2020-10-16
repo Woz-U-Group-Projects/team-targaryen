@@ -4,7 +4,6 @@ import { Modal, Button, Form, Spinner } from 'react-bootstrap';
 import "../css/bootstrap.min.css";
 import "../css/style.css";
 import Unauthorized from "./Unauthorized";
-// import Task from "./Task";
 
 class Tasks extends React.Component {
   constructor(props) {
@@ -95,23 +94,6 @@ class Tasks extends React.Component {
     this.setState({ isAddFormVisible: !isAddFormVisible });
   };
 
-  // getTask = () => {
-  //   let taskId = this.props.match.params.id;
-  //   return axios.get("/tasks/" + taskId)
-  //     .then(response => {
-  //       this.setState({ selectedTaskData: response.data })
-  //     })
-  //     .catch(err => {
-  //       console.log(err + ": \n" + err.response.data.error);
-  //       // return this.props.history.push(`/unauthorized`);
-
-  //       this.setState({
-  //         isSignedIn: false,
-  //         isLoading: false
-  //       });
-  //     });
-  // };
-
   handleDialogClose = (e) => {
     this.setState({
       isDialogOpen: {},
@@ -149,11 +131,6 @@ class Tasks extends React.Component {
         this.setState({ isDoneLoading: false });
         alert("Failed to update done status");
       })
-
-    // this.setState({
-    //   isDialogOpen: { doneDialog: true },
-    //   selectedTask: { ...task, done: !task.done }
-    // });
   }
 
   onClickEdit = (task) => (e) => {
@@ -219,42 +196,41 @@ class Tasks extends React.Component {
   render() {
     console.log(this.state.taskData);
 
-    if (this.state.taskData.length === 0) {
-      return (
-        <div className="d-flex justify-content-center">
-          <span className="spinner-border spinner-border-sm text-danger-pomodo" role="status"></span>
-        </div>
-      )
-    }
-
-    const tasks = this.state.taskData.map((task) => (
-      <div key={task.taskId} >
-        <div className="d-flex justify-content-between">
-
-          <div style={{ flex: "1", width: "0" }}>
-            <span><strong>{task.taskTitle}</strong></span>
-            <br />
-            <span>{task.taskBody}</span>
-          </div>
-
-          <div className="d-flex align-items-center">
-            <span>
-              <i className="ml-4 fas fa-pencil-alt" onClick={this.onClickEdit(task)} style={{ cursor: "pointer" }}></i>
-            </span>
-            <span>
-              {(this.state.isDoneLoading) ? (
-                <span id={task.taskId} className="ml-4 spinner-border spinner-border-sm text-danger-pomodo" role="status"></span>) : (
-                  <i className="ml-4 fas fa-check" onClick={this.onClickDone(task)} style={{ cursor: "pointer", color: task.done ? "#406340" : "lightgrey" }} disabled={this.state.isDoneLoading}></i>)}
-            </span>
-            <span>
-              <i className="ml-4 fas fa-trash-alt" onClick={this.onClickDelete(task)} style={{ cursor: "pointer" }}></i>
-            </span>
-          </div>
-
-        </div>
-        <hr />
+    const noTasks = (
+      <div className="d-flex justify-content-end">
+        <span className="h4 slideOutUp d-flex float-right"><i class="far fa-arrow-alt-circle-up"></i></span>
       </div>
-    ));
+    );
+
+    const tasks =
+      this.state.taskData.map((task) => (
+        <div key={task.taskId} >
+          <div className="d-flex justify-content-between">
+
+            <div style={{ flex: "1", width: "0" }}>
+              <span><strong>{task.taskTitle}</strong></span>
+              <br />
+              <span>{task.taskBody}</span>
+            </div>
+
+            <div className="d-flex align-items-center">
+              <span>
+                <i className="ml-4 fas fa-pencil-alt" onClick={this.onClickEdit(task)} style={{ cursor: "pointer" }}></i>
+              </span>
+              <span>
+                {(this.state.isDoneLoading) ? (
+                  <span id={task.taskId} className="ml-4 spinner-border spinner-border-sm text-danger-pomodo" role="status"></span>) : (
+                    <i className="ml-4 fas fa-check" onClick={this.onClickDone(task)} style={{ cursor: "pointer", color: task.done ? "#406340" : "lightgrey" }} disabled={this.state.isDoneLoading}></i>)}
+              </span>
+              <span>
+                <i className="ml-4 fas fa-trash-alt" onClick={this.onClickDelete(task)} style={{ cursor: "pointer" }}></i>
+              </span>
+            </div>
+
+          </div>
+          <hr />
+        </div>
+      ));
 
     const addTaskForm =
       <form onSubmit={this.onSubmitAddTask}>
@@ -284,7 +260,7 @@ class Tasks extends React.Component {
               </div>
               <div className="card-body">
                 {this.state.isAddFormVisible ? addTaskForm : null}
-                {tasks}
+                {(this.state.taskData.length === 0) ? noTasks : tasks}
               </div>
             </div>
           </div>

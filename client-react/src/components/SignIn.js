@@ -86,9 +86,6 @@ class SignIn extends React.Component {
     }
   };
 
-  // componentDidMount() {
-  // }
-
   render() {
     return (
       <div className="container-fluid">

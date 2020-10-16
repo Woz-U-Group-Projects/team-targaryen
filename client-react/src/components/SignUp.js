@@ -109,9 +109,6 @@ class SignUp extends React.Component {
     }
   };
 
-  // componentDidMount() {
-  // }
-
   render() {
     return (
       <div className="container-fluid">
@@ -123,7 +120,7 @@ class SignUp extends React.Component {
                 <Link to="/signin" className="nav-link h6 text-danger-pomodo" style={{ textDecoration: "none" }}>Sign In</Link>
               </div>
               <div className="card-body">
-                <Form noValidate onSubmit={this.onSubmit} ref={c => { this.form = c; }}>
+                <Form onSubmit={this.onSubmit} ref={c => { this.form = c; }}>
 
                   {!this.state.isSignedUp && (
                     <div>

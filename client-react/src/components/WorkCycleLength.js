@@ -27,9 +27,11 @@ const WorkCycleLength = (props) => {
         <h5>Work Cycle Length</h5>
       </div>
       <div>
+
         <button className="btn btn-danger-pomodo btn-sm" onClick={decreaseWorkCycleLength}>Shorter</button>
         <p className="d-inline ml-1 mr-1">{props.workCycleLength}</p>
         <button className="btn btn-danger-pomodo btn-sm" onClick={increaseWorkCycleLength}>Longer</button>
+
       </div>
     </div>
   );

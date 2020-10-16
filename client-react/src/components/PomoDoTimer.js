@@ -14,14 +14,13 @@ class PomoDoTimer extends React.Component {
   }
 
   onClickPlayTimer = () => {
-    let interval = setInterval(this.decreaseTimer, 10);
+    let interval = setInterval(this.decreaseTimer, 1000);
 
     this.setState({ interval: interval, isTimerPlaying: true });
   }
 
   decreaseTimer = () => {
     switch (this.state.currentTimerSecond) {
-
       case 0:
         if (this.props.currentTimerMinute === 0) {
           if (this.state.currentSessionIndex < this.props.longBreakIndex) {
@@ -35,7 +34,6 @@ class PomoDoTimer extends React.Component {
         break;
       default:
         return this.setState({ currentTimerSecond: this.state.currentTimerSecond - 1 });
-
     }
   }
 

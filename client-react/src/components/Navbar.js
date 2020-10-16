@@ -37,7 +37,6 @@ class Navbar extends React.Component {
         {/* Navbar content */}
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu">
           <i className="fas fa-ellipsis-v"></i>
-          {/* <span className="navbar-toggler-icon"></span> */}
         </button>
         <Link to="/" className="navbar-brand m-auto"><img src={logo} height="30px" alt="logo" /></Link>
         <div className="collapse navbar-collapse" id="menu">

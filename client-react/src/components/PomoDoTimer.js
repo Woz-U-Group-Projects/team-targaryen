@@ -52,7 +52,7 @@ class PomoDoTimer extends React.Component {
   render() {
     return (
       <div className="d-flex flex-column align-items-center">
-        <div className="mb-3 border rounded-circle border-shadow-pomodo d-flex flex-column justify-content-center" style={{ width: "250px", height: "250px" }}>
+        <div className="mt-4 mb-5 border rounded-circle border-shadow-pomodo d-flex flex-column justify-content-center" style={{ width: "250px", height: "250px" }}>
           <h5>{
             this.state.currentSessionIndex % 2 === 0
               ? "Work Cycle"

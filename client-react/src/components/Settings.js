@@ -11,19 +11,40 @@ class Settings extends React.Component {
     this.state = {
       workCycleLength: 25,
       shortBreakLength: 5,
-      longBreakLength: 15
+      longBreakLength: 15,
+
+      numberOfWorkCycles: 4,
+      longBreakIndex: 7
     }
   }
 
+  // Change Number of Work Cycles:
+  onDecreaseNumberOfWorkCycles = () => {
+    this.setState({
+      numberOfWorkCycles: this.state.numberOfWorkCycles - 1,
+      longBreakIndex: ((this.state.numberOfWorkCycles - 1) * 2) - 1
+    });
+  }
+
+  onIncreaseNumberOfWorkCycles = () => {
+    this.setState({
+      numberOfWorkCycles: this.state.numberOfWorkCycles + 1,
+      longBreakIndex: ((this.state.numberOfWorkCycles + 1) * 2) - 1
+    });
+  }
+
+  // Change Sessions Length:
   onDecreaseWorkCycleLength = () => {
     this.setState({
-      workCycleLength: this.state.workCycleLength - 1
+      workCycleLength: this.state.workCycleLength - 1,
+      currentTimerMinute: this.state.workCycleLength - 1
     });
   }
 
   onIncreaseWorkCycleLength = () => {
     this.setState({
-      workCycleLength: this.state.workCycleLength + 1
+      workCycleLength: this.state.workCycleLength + 1,
+      currentTimerMinute: this.state.workCycleLength + 1
     });
   }
 
@@ -78,6 +99,12 @@ class Settings extends React.Component {
                     longBreakLength={this.state.longBreakLength}
                     decreaseLongBreakLength={this.onDecreaseLongBreakLength}
                     increaseLongBreakLength={this.onIncreaseLongBreakLength}
+                  />
+                  <hr />
+                  <NumberOfWorkCycles
+                    numberOfWorkCycles={this.state.numberOfWorkCycles}
+                    decreaseNumberOfWorkCycles={this.onDecreaseNumberOfWorkCycles}
+                    increaseNumberOfWorkCycles={this.onIncreaseNumberOfWorkCycles}
                   />
                 </div>
               </div>

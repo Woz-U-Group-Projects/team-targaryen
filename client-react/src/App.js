@@ -1,14 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import axios from "axios";
-// import "./App.css";
 import Navbar from "./components/Navbar";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import Timer from "./components/Timer";
 import Tasks from "./components/Tasks";
-// import Task from "./components/Task";
-// import Settings from "./components/Settings";
 import Unauthorized from "./components/Unauthorized";
 
 class App extends React.Component {
@@ -55,15 +52,9 @@ class App extends React.Component {
       <BrowserRouter>
         <div className="App">
 
-          {/* <Route path="/!(signup|signin|unauthorized)">
-            {!this.state.isSignedIn && <Redirect to="/signin" />}
-          </Route> */}
-
-          {/* <Navbar isSignedIn={this.state.isSignedIn} signOut={this.signOut} /> */}
           <Navbar isSignedIn={this.state.isSignedIn} signOut={this.signOut} isTimerTabActive={this.onIsTimerTabActive} isSettingsTabActive={this.onIsSettingsTabActive} />
 
           <Route exact path="/">
-            {/* <Redirect to="/tasks"></Redirect> */}
             {this.state.isSignedIn ? <Redirect to="/tasks" /> : <Redirect to="/signin" />}
           </Route>
 
@@ -75,14 +66,7 @@ class App extends React.Component {
             <Timer isSettingsTabActive={this.state.isSettingsTabActive} />
           </Route>
 
-          <Route path="/tasks" component={Tasks} />
-          {/* <Route path="/tasks">
-            {this.state.isSignedIn ? <Tasks /> : <Redirect to="/unauthorized" />}
-          </Route> */}
-
-          {/* <Route path="/tasks/:id" component={Task} /> */}
-
-          {/* <Route path="/settings" component={Settings} /> */}
+          <Route path="/tasks" component={this.state.isSignedIn ? Tasks : Unauthorized} />
 
           <Route path="/unauthorized" component={Unauthorized} />
         </div>
